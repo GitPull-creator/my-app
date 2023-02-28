@@ -1,47 +1,20 @@
 import './taskList.css'
 import Task from "../Task";
 
-const TaskList = (props) => {
+const TaskList = ({className, description = "Completed task"}) => {
     return (
-        <ul className="todo-list">
-            <li className="completed">
-                <div className="view">
-                    <input className="toggle" type="checkbox"/>
-                        <label>
-                            <span className="description">Completed task</span>
-                            <span className="created">created 17 seconds ago</span>
-                        </label>
-                        <button className="icon icon-edit"></button>
-                        <button className="icon icon-destroy"></button>
-                </div>
+        <ul className={"todo-list"}>
+            <li className={className}>
+                <Task description={description}/>
             </li>
-
-            <li className="editing">
-                <div className="view">
-                    <input className="toggle" type="checkbox"/>
-                        <label>
-                            <span className="description">Editing task</span>
-                            <span className="created">created 5 minutes ago</span>
-                        </label>
-                        <button className="icon icon-edit"></button>
-                        <button className="icon icon-destroy"></button>
-                </div>
-                <input type="text" className="edit" value="Editing task"/>
+            <li className={className}>
+                <Task description={description}/>
             </li>
-
-            <li>
-                <div className="view">
-                    <input className="toggle" type="checkbox"/>
-                        <label>
-                            <span className="description">Active task</span>
-                            <span className="created">created 5 minutes ago</span>
-                        </label>
-                        <button className="icon icon-edit"></button>
-                        <button className="icon icon-destroy"></button>
-                </div>
+            <li className={className}>
+                <Task description={description}/>
             </li>
         </ul>
-)
+    )
 }
 
 export default TaskList;
