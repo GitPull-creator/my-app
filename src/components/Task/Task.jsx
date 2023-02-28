@@ -14,13 +14,14 @@ export default class Task extends Component {
             completed: !completed
         }))
     }
+
     render() {
         const {description} = this.props
         const {completed} = this.state;
         const createdText = formatDistanceToNow(new Date(), {addSuffix: true, includeSeconds: true});
 
         let className = ''
-        if (completed){
+        if (completed) {
             className = 'completed'
         }
 
@@ -38,13 +39,7 @@ export default class Task extends Component {
                 </div>
             </li>
         )
-
-
-
-
-        }
-
-
     }
+}
 
 
