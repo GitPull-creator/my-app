@@ -4,6 +4,7 @@ import TaskList from "../TaskList/TaskList";
 import Footer from "../Footer/Footer";
 import {Component} from "react";
 
+
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -12,18 +13,42 @@ export default class App extends Component {
                 {description: 'Editing task', completed: false, id: 2},
                 {description: 'Active task', completed: false, id: 3},]
         }
+        this.maxId = 4;
     }
 
+    deleteItem = (id) => {
+        this.setState(({data}) => {
+            return {
+                data: data.filter(item => item.id !== id)
+            }
+        })
+    }
+
+    addItem = (description) => {
+        const newItem = {
+            description,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
+    }
 
     render() {
         return (
             <section className="todoapp">
                 <header className="header">
                     <h1>todos</h1>
-                    <NewTaskForm/>
+                    <NewTaskForm onAdd={this.addItem}/>
                 </header>
                 <section className="main">
-                    <TaskList data={this.state.data}/>
+                    <TaskList
+                        data={this.state.data}
+                        onDelete={this.deleteItem}/>
                     <Footer/>
                 </section>
             </section>

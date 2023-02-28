@@ -16,7 +16,7 @@ export default class Task extends Component {
     }
 
     render() {
-        const {description} = this.props
+        const {description, onDelete} = this.props
         const {completed} = this.state;
         const createdText = formatDistanceToNow(new Date(), {addSuffix: true, includeSeconds: true});
 
@@ -35,7 +35,7 @@ export default class Task extends Component {
                         <span className="created">{`created ${createdText}`}</span>
                     </label>
                     <button className="icon icon-edit"></button>
-                    <button className="icon icon-destroy"></button>
+                    <button className="icon icon-destroy" onClick={onDelete}></button>
                 </div>
             </li>
         )

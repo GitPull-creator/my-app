@@ -2,12 +2,15 @@ import './taskList.css'
 import Task from "../Task";
 
 
-const TaskList = ({data}) => {
+const TaskList = ({data, onDelete}) => {
 
     const elements = data.map(item => {
         const {id, ...itemProps} = item
         return (
-            <Task key={id} {...itemProps}/>
+            <Task
+                key={id}
+                {...itemProps}
+                onDelete={() => onDelete(id)}/>
         )
     })
 
