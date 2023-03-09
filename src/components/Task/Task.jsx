@@ -5,8 +5,8 @@ export default class Task extends Component {
 
 
     render() {
-        const {description, onDelete, onToggleCompleted, completed} = this.props
-        const createdText = formatDistanceToNow(new Date(), {addSuffix: true, includeSeconds: true});
+        const {description, onDelete, onToggleCompleted, completed, created} = this.props
+        const createdText = formatDistanceToNow(created, {addSuffix: true, includeSeconds: true});
 
         let className = ''
         if (completed) {

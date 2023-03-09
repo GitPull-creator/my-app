@@ -25,7 +25,8 @@ export default class App extends Component {
             description,
             completed: false,
             editing: false,
-            id: this.maxId++
+            id: this.maxId++,
+            created: Date.now()
         }
     }
 
@@ -88,6 +89,10 @@ export default class App extends Component {
 
     onFilterSelect = (filter) => {
         this.setState({filter});
+    }
+
+    onItemEdit = () => {
+        console.log("edit")
     }
 
     render() {
