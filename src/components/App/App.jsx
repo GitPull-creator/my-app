@@ -38,23 +38,26 @@ export default class App extends Component {
         });
     }
 
+    toggleProperty(arr, id, propName) {
+        const idx = arr.findIndex((el) => el.id === id);
+        const oldItem = arr[idx];
+        const newItem = {...oldItem, [propName]: !oldItem[propName],}
+
+        return [
+            ...arr.slice(0, idx),
+            newItem,
+            ...arr.slice(idx + 1)
+        ];
+
+    }
+
     onToggleCompleted = (id) => {
         this.setState(({data}) => {
-            const idx = data.findIndex((el) => el.id === id);
-            const oldItem = data[idx];
-            const newItem = {...oldItem, completed: !oldItem.completed,}
-
-            const newArray = [
-                ...data.slice(0, idx),
-                newItem,
-                ...data.slice(idx + 1)
-            ];
-
             return {
-                data: newArray
-            }
-        })
-    }
+                data: this.toggleProperty(data, id, 'completed')
+            };
+        });
+    };
     deleteItem = (id) => {
         this.setState(({data}) => {
             return {
@@ -63,8 +66,18 @@ export default class App extends Component {
         })
     }
 
+    clearCompleted = () => {
+        this.setState(({data}) => {
+            return {
+                data: data.filter(item => item.completed === false)
+            }
+        })
+    }
+
 
     render() {
+        const {data} = this.state;
+        const leftCount = data.filter((el) => !el.completed).length
         return (
             <section className="todoapp">
                 <header className="header">
@@ -73,10 +86,11 @@ export default class App extends Component {
                 </header>
                 <section className="main">
                     <TaskList
-                        data={this.state.data}
+                        data={data}
                         onDelete={this.deleteItem}
                         onToggleCompleted={this.onToggleCompleted}/>
-                    <Footer/>
+                    <Footer leftCount={leftCount}
+                            clearCompleted={() => this.clearCompleted()}/>
                 </section>
             </section>
         )
