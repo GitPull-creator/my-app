@@ -2,22 +2,10 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import {Component} from "react";
 
 export default class Task extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            completed: false
-        }
-    }
 
-    isComplete = () => {
-        this.setState(({completed}) => ({
-            completed: !completed
-        }))
-    }
 
     render() {
-        const {description, onDelete, onToggleCompleted} = this.props
-        const {completed} = this.state;
+        const {description, onDelete, onToggleCompleted, completed} = this.props
         const createdText = formatDistanceToNow(new Date(), {addSuffix: true, includeSeconds: true});
 
         let className = ''

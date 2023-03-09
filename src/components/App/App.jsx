@@ -3,21 +3,57 @@ import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import TaskList from "../TaskList/TaskList";
 import Footer from "../Footer/Footer";
 import {Component} from "react";
+import {da} from "date-fns/locale";
 
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{description: 'Completed Task', completed: true, id: 1},
-                {description: 'Editing task', completed: false, id: 2},
-                {description: 'Active task', completed: false, id: 3},]
+            data: [
+                this.createTodoItem('Completed Task'),
+                this.createTodoItem('Editing Task'),
+                this.createTodoItem('Active Task'),
+            ]
         }
-        this.maxId = 4;
+    }
+
+    maxId = 100;
+
+    createTodoItem = (description) => {
+        return {
+            description,
+            completed: false,
+            id: this.maxId++
+        }
+    }
+
+    addItem = (description) => {
+        const newItem = this.createTodoItem(description)
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
     }
 
     onToggleCompleted = (id) => {
-        console.log("com", id)
+        this.setState(({data}) => {
+            const idx = data.findIndex((el) => el.id === id);
+            const oldItem = data[idx];
+            const newItem = {...oldItem, completed: !oldItem.completed,}
+
+            const newArray = [
+                ...data.slice(0, idx),
+                newItem,
+                ...data.slice(idx + 1)
+            ];
+
+            return {
+                data: newArray
+            }
+        })
     }
     deleteItem = (id) => {
         this.setState(({data}) => {
@@ -27,18 +63,6 @@ export default class App extends Component {
         })
     }
 
-    addItem = (description) => {
-        const newItem = {
-            description,
-            id: this.maxId++
-        }
-        this.setState(({data}) => {
-            const newArr = [...data, newItem];
-            return {
-                data: newArr
-            }
-        });
-    }
 
     render() {
         return (
