@@ -3,7 +3,6 @@ import NewTaskForm from "../NewTaskForm/NewTaskForm";
 import TaskList from "../TaskList/TaskList";
 import Footer from "../Footer/Footer";
 import {Component} from "react";
-import {da} from "date-fns/locale";
 
 
 export default class App extends Component {
@@ -14,7 +13,8 @@ export default class App extends Component {
                 this.createTodoItem('Completed Task'),
                 this.createTodoItem('Editing Task'),
                 this.createTodoItem('Active Task'),
-            ]
+            ],
+            filter: 'All'
         }
     }
 
@@ -24,6 +24,7 @@ export default class App extends Component {
         return {
             description,
             completed: false,
+            editing: false,
             id: this.maxId++
         }
     }
@@ -74,9 +75,24 @@ export default class App extends Component {
         })
     }
 
+    filterTasks = (data, filter) => {
+        switch (filter) {
+            case "Completed":
+                return data.filter(item => item.completed);
+            case "Active":
+                return data.filter(item => !item.completed && !item.editing);
+            default:
+                return data
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter});
+    }
 
     render() {
-        const {data} = this.state;
+        const {data, filter} = this.state;
+        const visibleData = this.filterTasks(data, filter)
         const leftCount = data.filter((el) => !el.completed).length
         return (
             <section className="todoapp">
@@ -86,11 +102,13 @@ export default class App extends Component {
                 </header>
                 <section className="main">
                     <TaskList
-                        data={data}
+                        data={visibleData}
                         onDelete={this.deleteItem}
                         onToggleCompleted={this.onToggleCompleted}/>
                     <Footer leftCount={leftCount}
-                            clearCompleted={() => this.clearCompleted()}/>
+                            clearCompleted={() => this.clearCompleted()}
+                            filter={filter}
+                            onFilterSelect={this.onFilterSelect}/>
                 </section>
             </section>
         )
