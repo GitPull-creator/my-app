@@ -16,6 +16,9 @@ export default class App extends Component {
         this.maxId = 4;
     }
 
+    onToggleCompleted = (id) => {
+        console.log("com", id)
+    }
     deleteItem = (id) => {
         this.setState(({data}) => {
             return {
@@ -27,7 +30,6 @@ export default class App extends Component {
     addItem = (description) => {
         const newItem = {
             description,
-            increase: false,
             id: this.maxId++
         }
         this.setState(({data}) => {
@@ -48,7 +50,8 @@ export default class App extends Component {
                 <section className="main">
                     <TaskList
                         data={this.state.data}
-                        onDelete={this.deleteItem}/>
+                        onDelete={this.deleteItem}
+                        onToggleCompleted={this.onToggleCompleted}/>
                     <Footer/>
                 </section>
             </section>

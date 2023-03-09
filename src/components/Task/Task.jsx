@@ -16,7 +16,7 @@ export default class Task extends Component {
     }
 
     render() {
-        const {description, onDelete} = this.props
+        const {description, onDelete, onToggleCompleted} = this.props
         const {completed} = this.state;
         const createdText = formatDistanceToNow(new Date(), {addSuffix: true, includeSeconds: true});
 
@@ -29,7 +29,7 @@ export default class Task extends Component {
             <li className={className}>
                 <div className="view">
                     <input className="toggle" type="checkbox"
-                           onClick={this.isComplete}/>
+                           onClick={onToggleCompleted}/>
                     <label>
                         <span className="description">{description}</span>
                         <span className="created">{`created ${createdText}`}</span>
