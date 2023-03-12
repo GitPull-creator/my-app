@@ -92,8 +92,38 @@ export default class App extends Component {
     }
 
     onEditClick = (id) => {
-        console.log("edit", id)
+
+        this.setState(({data}) => {
+            return {
+                data: this.toggleProperty(data, id, 'editing')
+            };
+        });
     }
+
+    handleEditFormSubmit = (id, text) => {
+        const oldItem = this.state.data.find((item) => item.id === id)
+        console.log(text)
+        this.setState(({data}) => {
+            const newItem = {
+                ...oldItem,
+                description: text,
+                editing: false,
+            };
+
+            return {
+                data: this.replaceItem(data, newItem),
+            };
+        });
+    };
+
+    replaceItem = (arr, newItem) => {
+        return arr.map((item) => {
+            const {id: itemId} = item;
+
+            return itemId === newItem.id ? newItem : item;
+        });
+    }
+
 
     render() {
         const {data, filter} = this.state;
@@ -110,7 +140,8 @@ export default class App extends Component {
                         data={visibleData}
                         onDelete={this.deleteItem}
                         onToggleCompleted={this.onToggleCompleted}
-                        onEditClick={this.onEditClick}/>
+                        onEditClick={this.onEditClick}
+                        handleEditFormSubmit={this.handleEditFormSubmit}/>
                     <Footer leftCount={leftCount}
                             clearCompleted={() => this.clearCompleted()}
                             filter={filter}
