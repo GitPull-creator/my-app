@@ -2,6 +2,18 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import {Component} from "react";
 
 export default class Task extends Component {
+    static defaultProps = {
+        description: '',
+        onDelete: () => null,
+        onToggleCompleted: () => null,
+        completed: false,
+        created: new Date(),
+        onEditClick: () => null,
+        editing: false,
+        handleEditFormSubmit: () => null,
+        index: 0,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -62,8 +74,7 @@ export default class Task extends Component {
                 </div>
                 {editing ? <form onSubmit={this.onSubmit}><input type="text"
                                                                  className="edit"
-                                                                 onChange={this.onValueChange}/>
-                </form> : null}
+                                                                 onChange={this.onValueChange}/></form> : null}
             </li>
         )
     }

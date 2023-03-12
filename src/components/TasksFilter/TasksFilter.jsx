@@ -2,6 +2,11 @@ import './tasksFilter.css'
 
 const TasksFilter = ({filter, onFilterSelect}) => {
 
+    TasksFilter.defaultProps = {
+        filter: '',
+        onFilterSelect: () => null,
+    };
+
     const buttonsData = [
         {name: 'All', label: "All"},
         {name: 'Active', label: "Active"},

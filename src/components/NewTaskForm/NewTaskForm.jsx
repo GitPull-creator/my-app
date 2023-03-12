@@ -2,12 +2,17 @@ import './taskForm.css'
 import {Component} from "react";
 
 export default class NewTaskForm extends Component {
+    static defaultProps = {
+        onAdd: () => null,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             description: ''
         }
     }
+
 
     onValueChange = (e) => {
         this.setState({
@@ -22,6 +27,7 @@ export default class NewTaskForm extends Component {
             description: ''
         })
     }
+
 
     render() {
         const {description} = this.state;

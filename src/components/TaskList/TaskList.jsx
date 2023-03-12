@@ -4,6 +4,14 @@ import Task from "../Task";
 
 const TaskList = ({data, onDelete, onToggleCompleted, onEditClick, handleEditFormSubmit}) => {
 
+    TaskList.defaultProps = {
+        data: [],
+        onDelete: () => null,
+        onToggleCompleted: () => null,
+        onEditClick: () => null,
+        handleEditFormSubmit: () => null,
+    };
+
     const elements = data.map(item => {
         const {id, ...itemProps} = item
         return (
