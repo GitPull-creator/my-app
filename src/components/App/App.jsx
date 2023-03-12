@@ -91,8 +91,8 @@ export default class App extends Component {
         this.setState({filter});
     }
 
-    onItemEdit = () => {
-        console.log("edit")
+    onEditClick = (id) => {
+        console.log("edit", id)
     }
 
     render() {
@@ -109,7 +109,8 @@ export default class App extends Component {
                     <TaskList
                         data={visibleData}
                         onDelete={this.deleteItem}
-                        onToggleCompleted={this.onToggleCompleted}/>
+                        onToggleCompleted={this.onToggleCompleted}
+                        onEditClick={this.onEditClick}/>
                     <Footer leftCount={leftCount}
                             clearCompleted={() => this.clearCompleted()}
                             filter={filter}
