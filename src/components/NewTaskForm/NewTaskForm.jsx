@@ -1,4 +1,4 @@
-import './taskForm.css'
+import './taskForm.css';
 import { Component } from 'react';
 
 export default class NewTaskForm extends Component {

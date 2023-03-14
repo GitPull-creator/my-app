@@ -1,5 +1,5 @@
-import './footer.css'
-import TasksFilter from '../TasksFilter/TasksFilter'
+import './footer.css';
+import TasksFilter from '../TasksFilter/TasksFilter';
 
 const Footer = ({ leftCount, clearCompleted, filter, onFilterSelect }) => {
   Footer.defaultProps = {
