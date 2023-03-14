@@ -1,10 +1,11 @@
 import './app.css';
 
 import React from 'react';
+import { Component } from 'react';
+
 import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import TaskList from '../TaskList/TaskList';
 import Footer from '../Footer/Footer';
-import { Component } from 'react';
 
 export default class App extends Component {
   constructor(props) {
